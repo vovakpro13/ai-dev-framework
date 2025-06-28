@@ -70,51 +70,49 @@ cd ai-framework
 Choose your tool below.
 
 ---
+## ⚙️ How to Start Creating Your AI Context
 
-## 🤖 Agent Instructions
+To begin creating your custom AI context, open your AI agent (Cursor, Gemini CLI, Copilot) and start it with the following prompt:
+
+```
+Read and execute instructions in /agent/README.md
+```
+
+This command will trigger a step-by-step dialog in the agent to configure your project’s rules and structure.
+
+---
+
+## 🤖 What to Do After the Context Is Created
+
+After the agent asks all the questions and generates the `AGENT_CONTEXT.md` file, you need to place this file in the appropriate location depending on your AI agent:
 
 ### 🌀 Gemini CLI
 
-```bash
-gemini
+- Place the `AGENT_CONTEXT.md` file in the root of your project (where you run gemini)
+- Use it with the `--context` flag, for example:
 ```
-
-Then write:
-
+gemini –context ./AGENT_CONTEXT.md
 ```
-Read ./agent/README.md and walk me through the setup.
-```
+**Or alternatively**, create a file named `GEMINI.md` in the project root and copy instructions from `AGENT_CONTEXT.md`:
 
-➡️ Gemini will ask you structured questions and build `AGENT_CONTEXT.md`.
-
-Use it later like:
-
-```bash
-gemini --context ./AGENT_CONTEXT.md
-```
+Then, Gemini will automatically load the context file when starting.
 
 ---
 
 ### 🧠 Cursor IDE
 
-1. Open the project in Cursor
-2. Move `AGENT_CONTEXT.md` into `.cursor/context/`
-3. Tell Cursor:
-
+- Copy or move the `AGENT_CONTEXT.md` file into the `.cursor/context/` folder
+- Activate the agent in the IDE and tell it:
 ```
-Use the context from `.cursor/context/AGENT_CONTEXT.md`
+Use the context from .cursor/context/AGENT_CONTEXT.md
 ```
-
-➡️ Now all your prompts will follow your project conventions.
 
 ---
 
 ### 🤖 GitHub Copilot
 
-> Copilot doesn't support structured context yet — but you can give it hints via comments.
-
-1. Open `README.md` or your root `App.tsx`
-2. Add this block:
+- Copilot does not currently support context files directly
+- Instead, add a comment with a brief description of your rules at the top of important files (e.g., `README.md` or `App.tsx`):
 
 ```ts
 // Copilot Context:
@@ -124,34 +122,7 @@ Use the context from `.cursor/context/AGENT_CONTEXT.md`
 // - Components: typed, logic-free
 // - API: custom fetch hook per endpoint
 ```
-
-➡️ This helps Copilot guess better within your repo structure.
-
----
-
-## 📄 About `AGENT_CONTEXT.md`
-
-After completing the Q&A, your agent will generate:
-
-```md
-# AGENT CONTEXT
-
-## Framework
-- React + TypeScript
-- Zustand for state
-- styled-components for styling
-
-## Folder Structure
-- feature-sliced: shared / entities / features / widgets / pages / app
-
-## Rules
-- Components: functional, separated styles
-- API: typed hooks per feature
-- State: colocated Zustand stores
-- Business logic: in hooks, not UI
-```
-
-You can update it anytime or regenerate it through the agent flow.
+This helps Copilot better understand your project context.
 
 ---
 
