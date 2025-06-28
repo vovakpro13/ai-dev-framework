@@ -1,0 +1,1 @@
+# examples/api folder
