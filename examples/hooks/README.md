@@ -1,1 +1,0 @@
-# examples/hooks folder
